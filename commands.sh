@@ -66,7 +66,7 @@ kubectl delete services kuard
 
 # -----------------------
 
-# Demo WordPress install with Helk
+# Demo WordPress install with Helm
 
 # Install Helm client (assumes cluster already has Helm Tiller installed)
 brew install kubernetes-helm

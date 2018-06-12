@@ -62,3 +62,27 @@ kubectl rollout undo deployment kuard
 # Cleanup
 kubectl delete deployment kuard
 kubectl delete services kuard
+
+
+# -----------------------
+
+# Demo WordPress install with Helk
+
+# Install Helm client (assumes cluster already has Helm Tiller installed)
+brew install kubernetes-helm
+helm init --client-only
+
+# Window 1
+kubectl create namespace ruan-wp-demo
+watch -n 1 kubectl get all,pv,pvc --namespace=ruan-wp-demo -o wide
+
+# Window 2
+helm install --namespace=ruan-wp-demo --name wordpress stable/wordpress
+
+kubectl get svc --namespace ruan-wp-demo wordpress-wordpress -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+kubectl get secret --namespace ruan-wp-demo wordpress-wordpress -o jsonpath='{.data.wordpress-password}' | base64 --decode
+
+# Access the website on ingress IP (Note: On Azure this may take 5 to 10 mins to appear on the public Internet)
+
+# Cleanup
+kubectl delete ns ruan-wp-demo

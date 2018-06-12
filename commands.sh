@@ -1,4 +1,23 @@
+# Install supporting tools
+brew install bash # Upgrade to latest version which supports better completion
+brew install bash-completion
+
+# Add to ~/.bash_profile
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
+fi
+
+# Add autocompletion for k8s specific commands
+source <(kubectl completion bash)
+
+brew install jq
+brew install watch
+
+# -----------------------
+
+# Select the relevant k8s config
 export KUBECONFIG=~/.kube/config
+
 
 # Looking at the cluster
 kubectl get nodes
@@ -23,7 +42,8 @@ kubectl expose deployment kuard --type=LoadBalancer --port=80 --target-port=8080
 kubectl expose deployment kuard --type=LoadBalancer --port=80 --target-port=8080
 kubectl get service kuard -o wide
 
------
+# -----------------------
+
 # Doing a deployment
 
 # Window 1
@@ -37,7 +57,8 @@ kubectl scale deployment kuard --replicas=10
 kubectl set image deployment kuard kuard=gcr.io/kuar-demo/kuard-amd64:2
 kubectl rollout undo deployment kuard
 
----
+# -----------------------
+
 # Cleanup
 kubectl delete deployment kuard
 kubectl delete services kuard

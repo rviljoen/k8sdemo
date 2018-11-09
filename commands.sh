@@ -13,7 +13,7 @@ source <(kubectl completion bash)
 brew install jq
 brew install watch
 
-# -----------------------
+# ------------------------
 
 # Select the relevant k8s config
 export KUBECONFIG=~/.kube/config

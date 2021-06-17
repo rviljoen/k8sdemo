@@ -86,3 +86,5 @@ kubectl get secret --namespace ruan-wp-demo wordpress-wordpress -o jsonpath='{.d
 
 # Cleanup
 kubectl delete ns ruan-wp-demo
+
+# -----------------------
